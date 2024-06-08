@@ -154,6 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const bookingInfo = document.getElementById("bookingInfo");
     const seatsContainer = document.querySelector(".seats");
 
+
+
+
+
     // Function to generate seats
     function generateSeats() {
         const rows = 10;
@@ -166,13 +170,16 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < rows; i++) {
             const rowDiv = document.createElement("div");
             rowDiv.classList.add("row");
+            const rowLabel = document.createElement("div"); // Create a div for row label
+            rowLabel.classList.add("seat", "aisle");
+            rowLabel.textContent = seatLabels[i]; // Set row label using seatLabels array
+            rowDiv.appendChild(rowLabel); // Append row label to rowDiv
             for (let j = 0; j < seatsPerRow; j++) {
                 const seat = document.createElement("div");
                 seat.classList.add("seat");
-                seat.dataset.row = i + 1;
+                seat.dataset.row = seatLabels[i]; // Set row label as dataset
                 seat.dataset.seat = j + 1;
-                const labelIndex = j < 26 ? j : j % 26;
-                const seatLabel = seatLabels[labelIndex] + (i + 1); // Calculate seat label
+                const seatLabel = seatLabels[i] + (j + 1); // Combine row label and seat number
 
                 // Add aisle class
                 if (j === aisleIndex1 || j === aisleIndex2) {
@@ -194,6 +201,10 @@ document.addEventListener("DOMContentLoaded", function() {
         aisleSpacer2.classList.add("seat", "aisle");
         seatsContainer.appendChild(aisleSpacer2);
     }
+
+
+
+
 
     generateSeats();
 
