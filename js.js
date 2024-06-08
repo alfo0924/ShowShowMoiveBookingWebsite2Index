@@ -111,12 +111,14 @@ function imagebackground() {
 
 
 //booking system
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
     const seatsContainer = document.querySelector(".seats");
+    const paymentButton = document.getElementById("paymentButton"); // Payment button
+    const paymentOptions = document.getElementById("paymentOptions"); // Payment options div
+    const cancelButton = document.getElementById("cancelButton"); // Cancel button
+    const qrCode = document.getElementById("qrCode"); // QR code div
 
     // 电影时间数据
     const movieTimes = {
@@ -153,10 +155,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
     const seatsContainer = document.querySelector(".seats");
-
-
-
-
 
     // Function to generate seats
     function generateSeats() {
@@ -201,10 +199,6 @@ document.addEventListener("DOMContentLoaded", function() {
         aisleSpacer2.classList.add("seat", "aisle");
         seatsContainer.appendChild(aisleSpacer2);
     }
-
-
-
-
 
     generateSeats();
 
@@ -277,14 +271,13 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         const bookingDetails = `
-                <h2>訂票資訊 </h2>
-                <p>電影 : ${movieNames[movie]}</p>
-                <p>時間 : ${time}</p>
-                <p>加購套餐 : ${comboText}</p>
-                <p>選擇座位 : ${selectedSeatLabels.join(", ")}</p>
-                <p>總金額 : $${totalPrice}</p>
+                <h2>Booking Details</h2>
+                <p>Movie: ${movieNames[movie]}</p>
+                <p>Time: ${time}</p>
+                <p>Combo: ${comboText}</p>
+                <p>Selected Seats: ${selectedSeatLabels.join(", ")}</p>
+                <p>Total Price: $${totalPrice}</p>
             `;
-
         bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
     });
 
@@ -319,5 +312,26 @@ document.addEventListener("DOMContentLoaded", function() {
         selectedSeats.forEach(seat => seat.classList.remove("selected"));
         bookingInfo.innerHTML = ""; // Clear booking info
     });
-});
 
+    // Payment button functionality
+    paymentButton.addEventListener("click", function() {
+        const bookingForm = document.getElementById("bookingForm");
+        const qrCode = document.getElementById("qrCode");
+
+        // Hide booking form
+        bookingForm.style.display = "none";
+        // Display QR Code
+        qrCode.style.display = "block";
+    });
+
+    // Cancel button functionality
+    cancelButton.addEventListener("click", function() {
+        const bookingForm = document.getElementById("bookingForm");
+        const qrCode = document.getElementById("qrCode");
+
+        // Hide QR Code
+        qrCode.style.display = "none";
+        // Display booking form
+        bookingForm.style.display = "block";
+    });
+});

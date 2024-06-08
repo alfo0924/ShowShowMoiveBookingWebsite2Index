@@ -137,3 +137,19 @@ select, button {
 }
 
 
+
+.aisle {
+    visibility: hidden;
+}
+
+.payment-options {
+    display: none;
+}
+
+.qr-code {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
