@@ -259,14 +259,20 @@ document.addEventListener("DOMContentLoaded", function() {
             comboText = "沒有套餐";
         }
 
+        const movieNames = {
+            movie1: "絕地戰警：生死與共",
+            movie2: "芙莉歐莎：瘋狂麥斯傳奇篇章",
+            movie3: "怒火狂猴"
+        };
+
         const bookingDetails = `
-                    <h2>Booking Details</h2>
-                    <p>Movie: ${movie}</p>
-                    <p>Time: ${time}</p>
-                    <p>Combo: ${comboText}</p>
-                    <p>Selected Seats: ${selectedSeatLabels.join(", ")}</p>
-                    <p>Total Price: $${totalPrice}</p>
-                `;
+                <h2>訂票資訊 </h2>
+                <p>電影 : ${movieNames[movie]}</p>
+                <p>時間 : ${time}</p>
+                <p>加購套餐 : ${comboText}</p>
+                <p>選擇座位 : ${selectedSeatLabels.join(", ")}</p>
+                <p>總金額 : $${totalPrice}</p>
+            `;
 
         bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
     });
