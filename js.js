@@ -271,12 +271,12 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         const bookingDetails = `
-                <h2>Booking Details</h2>
-                <p>Movie: ${movieNames[movie]}</p>
-                <p>Time: ${time}</p>
-                <p>Combo: ${comboText}</p>
-                <p>Selected Seats: ${selectedSeatLabels.join(", ")}</p>
-                <p>Total Price: $${totalPrice}</p>
+                <h2>訂票資訊  </h2>
+                <p>點影 : ${movieNames[movie]}</p>
+                <p>時間 : ${time}</p>
+                <p>加購套餐 : ${comboText}</p>
+                <p>選擇座位 : ${selectedSeatLabels.join(", ")}</p>
+                <p>總金額 : $${totalPrice}</p>
             `;
         bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
     });
