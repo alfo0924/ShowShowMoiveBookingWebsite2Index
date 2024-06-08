@@ -22,6 +22,7 @@
 
         .footer p {
             margin: 0;
+            color: inherit; /* 保持 footer 文字颜色与父元素一致 */
         }
 
         .bg-red {
@@ -35,11 +36,14 @@
         .bg-blue {
             background-color: blue;
         }
-        #rgbText:hover {
-            transition: 0.5s;
-            font-weight: 700;
-            font-size: 35px;
-            color: red; /* 初始顏色 */
+
+        #navbarTitle {
+            color: white !important;
+        }
+
+        /* Added class for white text */
+        .text-white {
+            color: white !important;
         }
     </style>
 </head>
@@ -53,7 +57,7 @@
 </nav>
 <div class="collapse navbar-collapse justify-content-end" id="navbarToggleExternalContent" data-bs-theme="light">
     <div class="bg-red p-4" id="navbarContent">
-        <h5 class="text-body-emphasis h4">SHOWSHOW電影訂票網</h5>
+        <h5 class="text-body-emphasis h4" id="navbarTitle">SHOWSHOW電影訂票網</h5>
         <span class="text-body-secondary" id="rgbText">RGB</span>
         <!-- 新增連結欄位 -->
         <ul class="navbar-nav">
@@ -84,10 +88,20 @@
     var navbar = document.getElementById('navbar');
     var navbarContent = document.getElementById('navbarContent');
     var footer = document.getElementById('footer');
+    var navbarTitle = document.getElementById('navbarTitle');
 
-    rgbText.addEventListener('click', function() {
+    rgbText.addEventListener('click', function () {
         // 改變文字顏色
-        this.style.color = colors[currentIndex];
+        document.body.style.color = 'white'; // 設置 body 文字顏色為白色
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+            item.classList.add('text-white'); // 添加白色文字的 class
+        });
+
+        // 根據顏色選擇設置不同的字體顏色
+        if (colors[currentIndex] === '#ffffff') {
+            document.body.style.color = 'black'; // 如果顏色是白色，則設置 body 文字顏色為黑色
+        }
+
         // 改變 navbar 主題的背景色
         navbar.style.backgroundColor = colors[currentIndex];
         // 改變 navbar 內容的背景色
