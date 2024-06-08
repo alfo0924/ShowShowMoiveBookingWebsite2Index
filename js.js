@@ -111,6 +111,44 @@ function imagebackground() {
 
 
 //booking system
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("bookingForm");
+    const bookingInfo = document.getElementById("bookingInfo");
+    const seatsContainer = document.querySelector(".seats");
+
+    // 电影时间数据
+    const movieTimes = {
+        movie1: ["上午 10:00", "下午 2:00", "下午 4:00"],
+        movie2: ["上午 9:00", "下午 1:00", "下午 3:00"],
+        movie3: ["上午 11:00", "下午 3:00", "下午 5:00"]
+    };
+
+    // 更新电影时间选项
+    function updateMovieTimes() {
+        const movieSelect = document.getElementById("movie");
+        const timeSelect = document.getElementById("time");
+        const selectedMovie = movieSelect.value;
+        timeSelect.innerHTML = ""; // 清空之前的选项
+
+        // 添加新的时间选项
+        movieTimes[selectedMovie].forEach(time => {
+            const option = document.createElement("option");
+            option.textContent = time;
+            option.value = time.toLowerCase().replace(/\s/g, ""); // 转换为小写并删除空格
+            timeSelect.appendChild(option);
+        });
+    }
+
+    // 初始化时间选项
+    updateMovieTimes();
+
+    // 当选择电影改变时，更新时间选项
+    const movieSelect = document.getElementById("movie");
+    movieSelect.addEventListener("change", updateMovieTimes);
+});
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
@@ -172,9 +210,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let comboPrice = 0;
         if (combo === "small") {
-            comboPrice = 50; // Small Combo (1 Drink, 1 Popcorn)
+            comboPrice = 50; // 1号小套餐 (饮料*1, 爆米花*1)
         } else if (combo === "large") {
-            comboPrice = 100; // Large Combo (2 Drinks, 1 Popcorn)
+            comboPrice = 100; // 1号大套餐 (饮料*2, 爆米花*2)
+        } else if (combo === "drinks") {
+            comboPrice = 20; // 饮料*1
+        } else if (combo === "popcorn") {
+            comboPrice = 30; // 爆米花*1
+        } else if (combo === "hotdog") {
+            comboPrice = 35; // 热狗*1
+        } else if (combo === "churros") {
+            comboPrice = 40; // 吉拿棒*1
+        } else if (combo === "small2") {
+            comboPrice = 55; // 2號小套餐 (飲料*1 ,熱狗*1)
+        } else if (combo === "small3") {
+            comboPrice = 60; // 3號小套餐 (飲料*1 ,吉拿棒*1)
+        } else if (combo === "large2") {
+            comboPrice = 110; // 2號大套餐 (飲料*2 ,熱狗*2)
+        } else if (combo === "large3") {
+            comboPrice = 120; // 3號大套餐 (飲料*2 ,吉拿棒*2)
         }
 
         const seatPrice = selectedSeats.length * 220; // Price per seat
@@ -182,11 +236,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let comboText = "";
         if (combo === "small") {
-            comboText = "Small Combo (1 Drink, 1 Popcorn)";
+            comboText = "1號小套餐 (飲料*1, 爆米花*1)";
         } else if (combo === "large") {
-            comboText = "Large Combo (2 Drinks, 1 Popcorn)";
+            comboText = "1號大套餐 (飲料*2, 爆米花*2)";
+        } else if (combo === "drinks") {
+            comboText = "飲料*1";
+        } else if (combo === "popcorn") {
+            comboText = "爆米花*1";
+        } else if (combo === "hotdog") {
+            comboText = "熱狗*1";
+        } else if (combo === "churros") {
+            comboText = "吉拿棒*1";
+        } else if (combo === "small2") {
+            comboText = "2號小套餐 (飲料*1 ,熱狗*1)";
+        } else if (combo === "small3") {
+            comboText = "3號小套餐 (飲料*1 ,吉拿棒*1)";
+        } else if (combo === "large2") {
+            comboText = "2號大套餐 (飲料*2 ,熱狗*2)";
+        } else if (combo === "large3") {
+            comboText = "3號大套餐 (飲料*2 ,吉拿棒*2)";
         } else {
-            comboText = "No Combo";
+            comboText = "沒有套餐";
         }
 
         const bookingDetails = `
@@ -233,3 +303,4 @@ document.addEventListener("DOMContentLoaded", function() {
         bookingInfo.innerHTML = ""; // Clear booking info
     });
 });
+
