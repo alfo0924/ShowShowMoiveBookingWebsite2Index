@@ -85,6 +85,69 @@
             box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.7);
         }
 
+    /*movie booking system*/
+
+        .container {
+
+            margin: 300px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        select, button {
+
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .screen {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .seats {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-color: #ccc;
+            border: 1px solid #fff;
+            cursor: pointer;
+        }
+
+        .seat.selected {
+            background-color: #f00;
+        }
+
+        .seat.randomly-selected {
+            background-color: #888;
+        }
+
+        .aisle {
+            visibility: hidden;
+        }
+
+
+
+
     </style>
 </head>
 <body >
@@ -127,6 +190,45 @@
         </ul>
     </div>
 </div>
+
+
+
+
+
+
+<div class="container">
+    <h1>Movie Booking Interface</h1>
+
+    <form id="bookingForm">
+        <label for="movie">Choose a movie:</label>
+        <select id="movie" name="movie">
+            <option value="movie1">Movie 1</option>
+            <option value="movie2">Movie 2</option>
+            <option value="movie3">Movie 3</option>
+        </select>
+
+        <label for="time">Choose a time:</label>
+        <select id="time" name="time">
+            <option value="time1">10:00 AM</option>
+            <option value="time2">2:00 PM</option>
+            <option value="time3">6:00 PM</option>
+        </select>
+        <div class="screen"><h2>Screen</h2></div>
+        <div class="seats">
+            <h2>Seats</h2>
+            <!-- Seats will be dynamically generated here -->
+        </div>
+
+        <button type="submit">Book Now</button>
+        <button type="button" id="clearButton">Clear Selection</button> <!-- Added Clear Selection button -->
+    </form>
+
+    <div id="bookingInfo"></div>
+</div>
+
+
+
+
 
 <footer   class="footer" class="dark-mode"  class="vintage-mode";  id="footer" >
     <p>© 2024 SWHOSHOW Movie Booking. All rights reserved.<span>&trade;</span></p>
@@ -235,6 +337,100 @@
             });
         }
     }
+
+
+
+    //booking system
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("bookingForm");
+        const bookingInfo = document.getElementById("bookingInfo");
+        const seatsContainer = document.querySelector(".seats");
+
+        // Function to generate seats
+        function generateSeats() {
+            const rows = 10;
+            const seatsPerRow = 22; // Add 2 aisles
+            const aisleIndex1 = Math.floor(seatsPerRow / 5); // Middle seat index for 1st aisle
+            const aisleIndex2 = Math.floor(seatsPerRow / 5) * 4; // Middle seat index for 2nd aisle
+
+            for (let i = 0; i < rows; i++) {
+                const rowDiv = document.createElement("div");
+                rowDiv.classList.add("row");
+                for (let j = 0; j < seatsPerRow; j++) {
+                    const seat = document.createElement("div");
+                    seat.classList.add("seat");
+                    seat.dataset.row = i + 1;
+                    seat.dataset.seat = j + 1;
+
+                    // Add aisle class
+                    if (j === aisleIndex1 || j === aisleIndex2) {
+                        seat.classList.add("aisle");
+                    }
+
+                    rowDiv.appendChild(seat);
+                }
+                seatsContainer.appendChild(rowDiv);
+            }
+
+            // Add aisle spacer
+            const aisleSpacer1 = document.createElement("div");
+            aisleSpacer1.classList.add("seat", "aisle");
+            seatsContainer.appendChild(aisleSpacer1);
+
+            const aisleSpacer2 = document.createElement("div");
+            aisleSpacer2.classList.add("seat", "aisle");
+            seatsContainer.appendChild(aisleSpacer2);
+        }
+
+        generateSeats();
+
+        // Function to handle form submission
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const movie = formData.get("movie");
+            const time = formData.get("time");
+            const selectedSeats = document.querySelectorAll(".seat.selected");
+            const seats = Array.from(selectedSeats).map(seat => ({
+                row: seat.dataset.row,
+                seat: seat.dataset.seat
+            }));
+
+            const bookingDetails = `
+                    <h2>Booking Details</h2>
+                    <p>Movie: ${movie}</p>
+                    <p>Time: ${time}</p>
+                    <p>Selected Seats: ${seats.map(seat => `Row ${seat.row}, Seat ${seat.seat}`).join(", ")}</p>
+                `;
+
+            bookingInfo.innerHTML = bookingDetails; // 將預訂資訊顯示在 bookingInfo 中
+        });
+
+        // Function to handle seat selection
+        seatsContainer.addEventListener("click", function(event) {
+            if (event.target.classList.contains("seat")) {
+                if (!event.target.classList.contains("randomly-selected")) {
+                    event.target.classList.toggle("selected");
+                }
+            }
+        });
+
+        // Function to randomly select some seats
+        function randomSeatSelection() {
+            const seats = document.querySelectorAll(".seat");
+
+            // Randomly select seats
+            for (let i = 0; i < seats.length; i++) {
+                if (Math.random() < 0.5 && !seats[i].classList.contains("aisle")) {
+                    seats[i].classList.add("randomly-selected");
+                }
+            }
+        }
+
+        // Call randomSeatSelection function when the page loads
+        randomSeatSelection();
+    });
 
 
 </script>
