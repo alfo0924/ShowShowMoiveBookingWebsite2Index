@@ -111,6 +111,9 @@ function imagebackground() {
 
 
 //booking system
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
@@ -279,6 +282,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p>總金額 : $${totalPrice}</p>
             `;
         bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
+
+        if (selectedSeats.length === 0) {
+            alert("請選擇座位場次時間！");
+        }
     });
 
     // Function to handle seat selection
@@ -315,13 +322,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Payment button functionality
     paymentButton.addEventListener("click", function() {
-        const bookingForm = document.getElementById("bookingForm");
-        const qrCode = document.getElementById("qrCode");
+        const selectedSeats = document.querySelectorAll(".seat.selected");
+        if (selectedSeats.length === 0) {
+            alert("請選擇座位場次時間！");
+        } else {
+            const bookingForm = document.getElementById("bookingForm");
+            const qrCode = document.getElementById("qrCode");
 
-        // Hide booking form
-        bookingForm.style.display = "none";
-        // Display QR Code
-        qrCode.style.display = "block";
+            // Hide booking form
+            bookingForm.style.display = "none";
+            // Display QR Code
+            qrCode.style.display = "block";
+        }
     });
 
     // Cancel button functionality
@@ -335,3 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
         bookingForm.style.display = "block";
     });
 });
+
+
+
+
