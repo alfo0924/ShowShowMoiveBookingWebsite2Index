@@ -89,6 +89,7 @@
 
         .container {
 
+            background: rgba(252, 252, 252, 0.13);
             margin: 300px auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -125,12 +126,13 @@
         }
 
         .seat {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             margin: 5px;
-            background-color: #ccc;
+            background-color: #e0e0e0;
             border: 1px solid #fff;
             cursor: pointer;
+            text-align: center;
         }
 
         .seat.selected {
@@ -138,7 +140,7 @@
         }
 
         .seat.randomly-selected {
-            background-color: #888;
+            background-color: #707070;
         }
 
         .aisle {
@@ -213,6 +215,17 @@
             <option value="time2">2:00 PM</option>
             <option value="time3">6:00 PM</option>
         </select>
+
+        <label for="combo">Add Combo Package (Drink and Popcorn)?</label>
+        <select id="combo" name="combo">
+            <option value="no">No Combo</option>
+            <option value="small">Small Combo (1 Drink, 1 Popcorn)</option>
+            <option value="large">Large Combo (2 Drinks, 1 Popcorn)</option>
+        </select>
+
+
+
+
         <div class="screen"><h2>Screen</h2></div>
         <div class="seats">
             <h2>Seats</h2>
@@ -236,6 +249,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
 <script>
+
     var colors = ['#f60000', 'blue', 'green', '#ffffff','#090909','#efefa8'];
     var currentIndex = 0;
     var rgbText = document.getElementById('rgbText');
@@ -263,7 +277,14 @@
             document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
                 item.classList.add('text-black'); // 添加白色文字的 class
             });
-        } else {
+        }
+        else if (colors[currentIndex] === '#efefa8') {
+            document.body.style.color = '#efefa8'; //
+            document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+                item.classList.add('text-black'); // 添加白色文字的 class
+            });
+        }
+        else {
             document.body.style.color = 'white'; // 设置 body 文字颜色为白色
             document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
                 item.classList.add('text-white'); // 添加白色文字的 class
@@ -353,6 +374,8 @@
             const aisleIndex1 = Math.floor(seatsPerRow / 5); // Middle seat index for 1st aisle
             const aisleIndex2 = Math.floor(seatsPerRow / 5) * 4; // Middle seat index for 2nd aisle
 
+            const seatLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Labels for seats
+
             for (let i = 0; i < rows; i++) {
                 const rowDiv = document.createElement("div");
                 rowDiv.classList.add("row");
@@ -361,12 +384,15 @@
                     seat.classList.add("seat");
                     seat.dataset.row = i + 1;
                     seat.dataset.seat = j + 1;
+                    const labelIndex = j < 26 ? j : j % 26;
+                    const seatLabel = seatLabels[labelIndex] + (i + 1); // Calculate seat label
 
                     // Add aisle class
                     if (j === aisleIndex1 || j === aisleIndex2) {
                         seat.classList.add("aisle");
                     }
 
+                    seat.textContent = seatLabel; // Set seat label as text content
                     rowDiv.appendChild(seat);
                 }
                 seatsContainer.appendChild(rowDiv);
@@ -391,20 +417,39 @@
             const formData = new FormData(form);
             const movie = formData.get("movie");
             const time = formData.get("time");
+            const combo = formData.get("combo");
             const selectedSeats = document.querySelectorAll(".seat.selected");
-            const seats = Array.from(selectedSeats).map(seat => ({
-                row: seat.dataset.row,
-                seat: seat.dataset.seat
-            }));
+            const selectedSeatLabels = Array.from(selectedSeats).map(seat => seat.textContent); // Extract only seat labels
+
+            let comboPrice = 0;
+            if (combo === "small") {
+                comboPrice = 50; // Small Combo (1 Drink, 1 Popcorn)
+            } else if (combo === "large") {
+                comboPrice = 100; // Large Combo (2 Drinks, 1 Popcorn)
+            }
+
+            const seatPrice = selectedSeats.length * 220; // Price per seat
+            const totalPrice = seatPrice + comboPrice;
+
+            let comboText = "";
+            if (combo === "small") {
+                comboText = "Small Combo (1 Drink, 1 Popcorn)";
+            } else if (combo === "large") {
+                comboText = "Large Combo (2 Drinks, 1 Popcorn)";
+            } else {
+                comboText = "No Combo";
+            }
 
             const bookingDetails = `
                     <h2>Booking Details</h2>
                     <p>Movie: ${movie}</p>
                     <p>Time: ${time}</p>
-                    <p>Selected Seats: ${seats.map(seat => `Row ${seat.row}, Seat ${seat.seat}`).join(", ")}</p>
+                    <p>Combo: ${comboText}</p>
+                    <p>Selected Seats: ${selectedSeatLabels.join(", ")}</p>
+                    <p>Total Price: $${totalPrice}</p>
                 `;
 
-            bookingInfo.innerHTML = bookingDetails; // 將預訂資訊顯示在 bookingInfo 中
+            bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
         });
 
         // Function to handle seat selection
@@ -430,8 +475,15 @@
 
         // Call randomSeatSelection function when the page loads
         randomSeatSelection();
-    });
 
+        // Clear Selection button functionality
+        const clearButton = document.getElementById("clearButton");
+        clearButton.addEventListener("click", function() {
+            const selectedSeats = document.querySelectorAll(".seat.selected");
+            selectedSeats.forEach(seat => seat.classList.remove("selected"));
+            bookingInfo.innerHTML = ""; // Clear booking info
+        });
+    });
 
 </script>
 </body>
