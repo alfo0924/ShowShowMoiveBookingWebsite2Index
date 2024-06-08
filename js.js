@@ -111,9 +111,6 @@ function imagebackground() {
 
 
 //booking system
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
@@ -122,6 +119,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const paymentOptions = document.getElementById("paymentOptions"); // Payment options div
     const cancelButton = document.getElementById("cancelButton"); // Cancel button
     const qrCode = document.getElementById("qrCode"); // QR code div
+
+    // Function to clear selected seats
+    function clearSelectedSeats() {
+        const selectedSeats = document.querySelectorAll(".seat.selected");
+        selectedSeats.forEach(seat => seat.classList.remove("selected"));
+    }
 
     // 电影时间数据
     const movieTimes = {
@@ -152,12 +155,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // 当选择电影改变时，更新时间选项
     const movieSelect = document.getElementById("movie");
     movieSelect.addEventListener("change", updateMovieTimes);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("bookingForm");
-    const bookingInfo = document.getElementById("bookingInfo");
-    const seatsContainer = document.querySelector(".seats");
 
     // Function to generate seats
     function generateSeats() {
@@ -328,11 +325,35 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             const bookingForm = document.getElementById("bookingForm");
             const qrCode = document.getElementById("qrCode");
+            const countdownTimer = document.getElementById("countdownTimer"); // 新增的倒數計時器元素
 
             // Hide booking form
             bookingForm.style.display = "none";
             // Display QR Code
             qrCode.style.display = "block";
+
+            // 設置倒數計時器初始值
+            let secondsLeft = 60;
+
+            // 更新倒數計時器顯示
+            countdownTimer.textContent = secondsLeft;
+
+            // 啟動倒數計時器
+            const timer = setInterval(function() {
+                secondsLeft--;
+                countdownTimer.textContent = secondsLeft;
+
+                // 檢查是否計時結束
+                if (secondsLeft === 0) {
+                    clearInterval(timer); // 清除計時器
+                    // 隱藏付款頁面，顯示訂票頁面
+                    qrCode.style.display = "none";
+                    bookingForm.style.display = "block";
+
+                    // 清除選定的座位
+                    clearSelectedSeats();
+                }
+            }, 1000); // 每秒更新一次計時器
         }
     });
 
@@ -345,9 +366,11 @@ document.addEventListener("DOMContentLoaded", function() {
         qrCode.style.display = "none";
         // Display booking form
         bookingForm.style.display = "block";
+
+        // Clear selected seats
+        clearSelectedSeats();
     });
 });
-
 
 
 
