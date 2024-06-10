@@ -111,6 +111,7 @@ function imagebackground() {
 
 
 //booking system
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("bookingForm");
     const bookingInfo = document.getElementById("bookingInfo");
@@ -125,6 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const selectedSeats = document.querySelectorAll(".seat.selected");
         selectedSeats.forEach(seat => seat.classList.remove("selected"));
     }
+
+
 
     // 电影时间数据
     const movieTimes = {
@@ -164,53 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitButton = document.querySelector('button[type="submit"]');
     const bookingInfoDiv = document.getElementById('bookingInfo');
 
-// 添加事件监听器，当输入框的值发生改变时进行验证
-    phoneInput.addEventListener('input', function() {
-        // 使用正则表达式验证手机号格式
-        const phoneRegex = /^[0-9]{10}$/; // 这个正则表达式假设手机号是10位数的数字
-        const isValidPhone = phoneRegex.test(phoneInput.value);
 
-        // 根据验证结果禁用或启用预订按钮，并显示相应的提示信息
-        if (isValidPhone) {
-            submitButton.disabled = false;
-            phoneInput.setCustomValidity(''); // 清除自定义验证消息
-        } else {
-            submitButton.disabled = true;
-            phoneInput.setCustomValidity('請輸入正確手機號碼'); // 设置自定义验证消息
-        }
-    });
-// 在表单提交事件监听器中添加以下代码来检查电话号码输入
-    submitButton.addEventListener('click', function(event) {
-        const selectedSeats = document.querySelectorAll('.seat.selected');
-        const phoneNumber = phoneInput.value;
-
-        // 如果未选择座位或未输入电话号码，则阻止默认行为并显示相应的错误消息
-        if (selectedSeats.length === 0 || phoneNumber === '') {
-            event.preventDefault(); // 阻止表单提交
-            if (selectedSeats.length === 0) {
-                alert('請選擇座位！');
-            }
-            if (phoneNumber === '') {
-                alert('請輸入手機號碼！');
-            }
-        }
-    });
-
-
-
-// 在座位选择事件监听器中添加以下代码来检查是否选择了座位并启用/禁用付款按钮
-    seatsContainer.addEventListener('click', function(event) {
-        const selectedSeats = document.querySelectorAll('.seat.selected');
-        const phoneRegex = /^[0-9]{10}$/;
-        const isValidPhone = phoneRegex.test(phoneInput.value);
-
-        // 如果至少选择了一个座位并且输入了有效的电话号码，则启用付款按钮；否则禁用它
-        if (selectedSeats.length > 0 && isValidPhone) {
-            paymentButton.disabled = false;
-        } else {
-            paymentButton.disabled = true;
-        }
-    });
 
 
 
@@ -454,40 +411,25 @@ document.addEventListener("DOMContentLoaded", function() {
         // Clear selected seats
         clearSelectedSeats();
     });
+
+    // 座位选择事件监听器
+    seatsContainer.addEventListener('click', function(event) {
+        const selectedSeats = document.querySelectorAll('.seat.selected');
+        const phoneRegex = /^[0-9]{10}$/;
+        const isValidPhone = phoneRegex.test(phoneInput.value);
+
+        // 如果至少选择了一个座位并且输入了有效的电话号码，则启用付款按钮；否则禁用它
+        if (selectedSeats.length > 0 && isValidPhone) {
+            paymentButton.disabled = false;
+        } else {
+            paymentButton.disabled = true;
+        }
+    });
 });
 
 
 
 
-//
-// // 在表单提交事件监听器中添加以下代码来检查电话号码输入
-// submitButton.addEventListener('click', function(event) {
-//     const selectedSeats = document.querySelectorAll('.seat.selected');
-//     const phoneNumber = phoneInput.value;
-//
-//     // 如果未选择座位或未输入电话号码，则阻止默认行为并显示相应的错误消息
-//     if (selectedSeats.length === 0 || phoneNumber === '') {
-//         event.preventDefault(); // 阻止表单提交
-//         if (selectedSeats.length === 0) {
-//             alert('請選擇座位！');
-//         }
-//         if (phoneNumber === '') {
-//             alert('請輸入手機號碼！');
-//         }
-//     }
-// });
-//
-// // 在座位选择事件监听器中添加以下代码来检查是否选择了座位并启用/禁用付款按钮
-// seatsContainer.addEventListener('click', function(event) {
-//     const selectedSeats = document.querySelectorAll('.seat.selected');
-//
-//     // 如果至少选择了一个座位并且输入了电话号码，则启用付款按钮；否则禁用它
-//     if (selectedSeats.length > 0 && phoneInput.value !== '') {
-//         paymentButton.disabled = false;
-//     } else {
-//         paymentButton.disabled = true;
-//     }
-// });
 //
 
 
