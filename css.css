@@ -156,10 +156,6 @@ select, button {
 
 
 
-
-
-
-
 /* 在小于1380px的屏幕尺寸下调整容器的宽度 */
 @media screen and (max-width: 1380px) {
     .container {
