@@ -357,6 +357,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+
+    // 当选择电影或时间更改时更新座位表
+    const timeSelect = document.getElementById("time");
+
+    movieSelect.addEventListener("change", updateSeats);
+    timeSelect.addEventListener("change", updateSeats);
+
+    function updateSeats() {
+        const seatsContainer = document.querySelector(".seats");
+        // 清空现有座位表
+        seatsContainer.innerHTML = "";
+
+        // 重新生成座位表
+        generateSeats();
+        randomSeatSelection();
+    }
+
     // Cancel button functionality
     cancelButton.addEventListener("click", function() {
         const bookingForm = document.getElementById("bookingForm");
@@ -372,5 +389,5 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
+//
 
