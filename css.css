@@ -84,6 +84,7 @@ body{
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
+
 }
 
 form {
@@ -156,25 +157,4 @@ select, button {
 
 
 
-/* 在小于1380px的屏幕尺寸下调整容器的宽度 */
-@media screen and (max-width: 1380px) {
-    .container {
-        width: 90%; /* 小于1380px时宽度调整为90%，即1242px */
-    }
-}
-
-/* 在小于768px的屏幕尺寸下进一步调整容器的宽度 */
-@media screen and (max-width: 768px) {
-    .container {
-        width: 95%; /* 小于768px时宽度调整为95%，即736px */
-    }
-}
-
-/* 在小于500px的屏幕尺寸下进一步调整容器的宽度 */
-@media screen and (max-width: 500px) {
-    .container {
-        width: 100%; /* 小于500px时宽度调整为100% */
-        padding: 10px; /* 调整内边距 */
-    }
-}
 
