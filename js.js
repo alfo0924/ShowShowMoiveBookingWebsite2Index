@@ -162,6 +162,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+
+
 // 获取手机号输入框、预订按钮和显示手机号信息的元素
     const phoneInput = document.getElementById('phone');
     const submitButton = document.querySelector('button[type="submit"]');
@@ -341,6 +344,21 @@ document.addEventListener("DOMContentLoaded", function() {
         bookingInfo.innerHTML = ""; // Clear booking info
     });
 
+    // 在座位选择事件监听器之前添加以下代码
+
+// 手机号码输入框事件监听器
+    phoneInput.addEventListener('input', function() {
+        const selectedSeats = document.querySelectorAll('.seat.selected');
+        const phoneRegex = /^[0-9]{10}$/;
+        const isValidPhone = phoneRegex.test(phoneInput.value);
+
+        // 如果至少选择了一个座位并且输入了有效的电话号码，则启用付款按钮；否则禁用它
+        if (selectedSeats.length > 0 && isValidPhone) {
+            paymentButton.disabled = false;
+        } else {
+            paymentButton.disabled = true;
+        }
+    });
     // Payment button functionality
     paymentButton.addEventListener("click", function() {
         const selectedSeats = document.querySelectorAll(".seat.selected");
@@ -411,6 +429,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Clear selected seats
         clearSelectedSeats();
     });
+
 
     // 座位选择事件监听器
     seatsContainer.addEventListener('click', function(event) {
