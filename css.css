@@ -153,3 +153,49 @@ select, button {
 .visible {
     display: block;
 }
+
+/* 手機板介面比例 */
+@media (max-width: 768px) {
+    .container {
+        margin: 100px auto; /* 調整 container 在手機板上的垂直間距 */
+        padding: 10px; /* 調整 container 在手機板上的內邊距 */
+    }
+
+    select, button {
+        padding: 8px; /* 調整 select 和 button 在手機板上的內邊距 */
+        margin-bottom: 8px; /* 調整 select 和 button 在手機板上的垂直間距 */
+    }
+
+    .row {
+        margin-bottom: 5px; /* 調整座位行在手機板上的垂直間距 */
+    }
+
+    .seat {
+        width: 30px; /* 調整座位在手機板上的大小 */
+        height: 30px; /* 調整座位在手機板上的大小 */
+        margin: 3px; /* 調整座位在手機板上的間距 */
+    }
+}
+
+/* 平板介面比例 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        margin: 200px auto; /* 調整 container 在平板介面上的垂直間距 */
+        padding: 15px; /* 調整 container 在平板介面上的內邊距 */
+    }
+
+    select, button {
+        padding: 10px; /* 調整 select 和 button 在平板介面上的內邊距 */
+        margin-bottom: 10px; /* 調整 select 和 button 在平板介面上的垂直間距 */
+    }
+
+    .row {
+        margin-bottom: 8px; /* 調整座位行在平板介面上的垂直間距 */
+    }
+
+    .seat {
+        width: 40px; /* 調整座位在平板介面上的大小 */
+        height: 40px; /* 調整座位在平板介面上的大小 */
+        margin: 5px; /* 調整座位在平板介面上的間距 */
+    }
+}
