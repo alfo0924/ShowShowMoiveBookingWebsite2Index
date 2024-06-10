@@ -170,6 +170,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+
     // Function to generate seats
     function generateSeats() {
         const rows = 10;
@@ -423,12 +425,9 @@ document.addEventListener("DOMContentLoaded", function() {
             paymentButton.disabled = true;
         }
     });
-
 });
 
 
 
 
 //
-
-
