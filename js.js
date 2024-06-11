@@ -1,11 +1,10 @@
-
-var colors = ['#f60000', 'blue', 'green', '#ffffff','#090909','#efefa8'];
+var colors = ['#f60000', 'blue', 'green', '#ffffff', '#090909', '#efefa8'];
 var currentIndex = 0;
 var rgbText = document.getElementById('rgbText');
-var navbar = document.getElementById('navbar');
-var navbarContent = document.getElementById('navbarContent');
+var navbar = document.querySelector('.navbar');
+var navbarContent = document.querySelector('.offcanvas-body');
 var footer = document.getElementById('footer');
-var navbarTitle = document.getElementById('navbarTitle');
+var navbarTitle = document.querySelector('.offcanvas-title');
 
 rgbText.addEventListener('click', function () {
     // 移除旧的文字颜色类
@@ -23,19 +22,19 @@ rgbText.addEventListener('click', function () {
     // 根据颜色选择设置不同的字体颜色
     if (colors[currentIndex] === '#ffffff') {
         document.body.style.color = 'black'; // 如果颜色是白色，则设置 body 文字颜色为黑色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
-            item.classList.add('text-black'); // 添加白色文字的 class
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
+            item.classList.add('text-black'); // 添加黑色文字的 class
         });
     }
     else if (colors[currentIndex] === '#efefa8') {
         document.body.style.color = '#efefa8'; //
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
-            item.classList.add('text-black'); // 添加白色文字的 class
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
+            item.classList.add('text-black'); // 添加黑色文字的 class
         });
     }
     else {
         document.body.style.color = 'white'; // 设置 body 文字颜色为白色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.add('text-white'); // 添加白色文字的 class
         });
     }
@@ -46,21 +45,20 @@ rgbText.addEventListener('click', function () {
 
 function dm() {
     var element = document.body;
-    var navbar = document.getElementById('navbar');
+    var navbar = document.querySelector('.navbar');
     var footer = document.getElementById('footer');
 
     element.classList.toggle("dark-mode");
     navbar.classList.toggle("navbar-light");
 
-
     if (element.classList.contains("dark-mode")) {
         document.body.style.color = 'white'; // 设置 body 文字颜色为白色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.add('text-white'); // 添加白色文字的 class
         });
     } else {
         document.body.style.color = 'black'; // 设置 body 文字颜色为黑色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.remove('text-white'); // 移除白色文字的 class
         });
     }
@@ -68,19 +66,19 @@ function dm() {
 
 function vintage() {
     var element = document.body;
-    var navbar = document.getElementById('navbar');
+    var navbar = document.querySelector('.navbar');
     var footer = document.getElementById('footer');
 
     element.classList.toggle("vintage-mode");
     navbar.classList.toggle("navbar-light");
     if (element.classList.contains("vintage-mode")) {
         document.body.style.color = 'black'; // 设置 body 文字颜色为白色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.add('text-black'); // 添加白色文字的 class
         });
     } else {
         document.body.style.color = 'black'; // 设置 body 文字颜色为黑色
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.remove('text-white'); // 移除白色文字的 class
         });
     }
@@ -92,7 +90,7 @@ function imagebackground() {
     if (element.classList.contains("imgbg")) {
         document.body.style.color = 'white'; // 设置 body 文字颜色为白色
 
-        document.querySelectorAll('.navbar-nav .nav-link, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.add('text-white'); // 添加白色文字的 class
 
             document.querySelectorAll('.footer p').forEach(function (item) {
@@ -102,7 +100,7 @@ function imagebackground() {
     } else {
         document.body.style.color = 'black'; // 设置 body 文字颜色为黑色
         document.body.style.background = ''; // 移除背景图像
-        document.querySelectorAll('.navbar-nav .nav-link, .footer p, #navbarTitle, #rgbText').forEach(function (item) {
+        document.querySelectorAll('.navbar-nav .nav-link, .footer p, .offcanvas-title, #rgbText').forEach(function (item) {
             item.classList.remove('text-white'); // 移除白色文字的 class
         });
     }
