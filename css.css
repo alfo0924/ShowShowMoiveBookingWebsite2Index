@@ -158,10 +158,16 @@ select, button {
 .navbar
 {
     background: rgba(255, 255, 255, 0.66);
+
+}
+.navbar a:hover
+{
+    color: #da0b0b;
+    cursor: pointer;
 }
 .offcanvas
 {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.55);
 }
 
 
