@@ -125,8 +125,6 @@ document.addEventListener("DOMContentLoaded", function() {
         selectedSeats.forEach(seat => seat.classList.remove("selected"));
     }
 
-
-
     // 电影时间数据
     const movieTimes = {
         movie1: ["上午 10:00", "下午 2:00", "下午 4:00"],
@@ -156,22 +154,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // 当选择电影改变时，更新时间选项
     const movieSelect = document.getElementById("movie");
     movieSelect.addEventListener("change", updateMovieTimes);
-
-
-
-
-
-
-
-// 获取手机号输入框、预订按钮和显示手机号信息的元素
-    const phoneInput = document.getElementById('phone');
-    const submitButton = document.querySelector('button[type="submit"]');
-    const bookingInfoDiv = document.getElementById('bookingInfo');
-
-
-
-
-
 
     // Function to generate seats
     function generateSeats() {
@@ -287,20 +269,12 @@ document.addEventListener("DOMContentLoaded", function() {
             movie3: "怒火狂猴"
         };
 
-
-        event.preventDefault(); // 阻止默认的表单提交行为
-
-        // 获取手机号码并显示在页面上
-        const phoneNumber = phoneInput.value;
-        bookingInfoDiv.innerText = `您输入的手机号码是：${phoneNumber}`;
-
         const bookingDetails = `
                 <h2>訂票資訊  </h2>
                 <p>電影 : ${movieNames[movie]}</p>
                 <p>時間 : ${time}</p>
                 <p>加購套餐 : ${comboText}</p>
                 <p>選擇座位 : ${selectedSeatLabels.join(", ")}</p>
-                <p>手機號碼 : ${phoneNumber}</p>
                 <p>總金額 : $${totalPrice}</p>
             `;
         bookingInfo.innerHTML = bookingDetails; // Display selected seat labels only
@@ -342,21 +316,6 @@ document.addEventListener("DOMContentLoaded", function() {
         bookingInfo.innerHTML = ""; // Clear booking info
     });
 
-    // 在座位选择事件监听器之前添加以下代码
-
-// 手机号码输入框事件监听器
-    phoneInput.addEventListener('input', function() {
-        const selectedSeats = document.querySelectorAll('.seat.selected');
-        const phoneRegex = /^[0-9]{10}$/;
-        const isValidPhone = phoneRegex.test(phoneInput.value);
-
-        // 如果至少选择了一个座位并且输入了有效的电话号码，则启用付款按钮；否则禁用它
-        if (selectedSeats.length > 0 && isValidPhone) {
-            paymentButton.disabled = false;
-        } else {
-            paymentButton.disabled = true;
-        }
-    });
     // Payment button functionality
     paymentButton.addEventListener("click", function() {
         const selectedSeats = document.querySelectorAll(".seat.selected");
@@ -397,23 +356,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-
-    // 当选择电影或时间更改时更新座位表
-    const timeSelect = document.getElementById("time");
-
-    movieSelect.addEventListener("change", updateSeats);
-    timeSelect.addEventListener("change", updateSeats);
-
-    function updateSeats() {
-        const seatsContainer = document.querySelector(".seats");
-        // 清空现有座位表
-        seatsContainer.innerHTML = "";
-
-        // 重新生成座位表
-        generateSeats();
-        randomSeatSelection();
-    }
-
     // Cancel button functionality
     cancelButton.addEventListener("click", function() {
         const bookingForm = document.getElementById("bookingForm");
@@ -427,24 +369,84 @@ document.addEventListener("DOMContentLoaded", function() {
         // Clear selected seats
         clearSelectedSeats();
     });
+});
 
 
-    // 座位选择事件监听器
-    seatsContainer.addEventListener('click', function(event) {
-        const selectedSeats = document.querySelectorAll('.seat.selected');
-        const phoneRegex = /^[0-9]{10}$/;
-        const isValidPhone = phoneRegex.test(phoneInput.value);
+//content function
 
-        // 如果至少选择了一个座位并且输入了有效的电话号码，则启用付款按钮；否则禁用它
-        if (selectedSeats.length > 0 && isValidPhone) {
-            paymentButton.disabled = false;
-        } else {
-            paymentButton.disabled = true;
-        }
-    });
+// 獲取需要操作的元素
+
+
+var carousel = document.querySelector('#carouselExampleAutoplaying');
+
+var web1Image = document.querySelector('#web1Image');
+var web2Image = document.querySelector('#web2Image');
+var web3Image = document.querySelector('#web3Image');
+
+
+var web1Content = document.querySelector('#web1Content');
+var web2Content = document.querySelector('#web2Content');
+var web3Content = document.querySelector('#web3Content');
+
+var backButton1 = document.querySelector('#backButton1');
+var backButton2 = document.querySelector('#backButton2');
+var backButton3 = document.querySelector('#backButton3');
+
+// 監聽圖片點擊事件
+web1Image.addEventListener('click', function() {
+    // 隱藏自動輪播圖
+    carousel.style.display = 'none';
+    // 顯示web1的內容
+    web1Content.style.display = 'block';
+});
+web2Image.addEventListener('click', function() {
+    // 隱藏自動輪播圖
+    carousel.style.display = 'none';
+    // 顯示web2的內容
+    web2Content.style.display = 'block';
+});
+web3Image.addEventListener('click', function() {
+    // 隱藏自動輪播圖
+    carousel.style.display = 'none';
+    // 顯示web3的內容
+    web3Content.style.display = 'block';
+});
+
+// 監聽返回按鈕點擊事件
+backButton1.addEventListener('click', function() {
+    // 隱藏web1的內容
+    web1Content.style.display = 'none';
+    // 顯示自動輪播圖
+    carousel.style.display = 'block';
+});
+// 監聽返回按鈕點擊事件
+backButton2.addEventListener('click', function() {
+    // 隱藏web1的內容
+    web2Content.style.display = 'none';
+    // 顯示自動輪播圖
+    carousel.style.display = 'block';
+});
+// 監聽返回按鈕點擊事件
+backButton3.addEventListener('click', function() {
+    // 隱藏web1的內容
+    web3Content.style.display = 'none';
+    // 顯示自動輪播圖
+    carousel.style.display = 'block';
 });
 
 
 
-
-//
+// // 監聽返回按鈕點擊事件
+// backButton.addEventListener('click', function() {
+//     // 隱藏web2的內容
+//     web2Content.style.display = 'none';
+//     // 顯示自動輪播圖
+//     carousel.style.display = 'block';
+// });
+// // 監聽返回按鈕點擊事件
+// backButton.addEventListener('click', function() {
+//     // 隱藏web3的內容
+//     web3Content.style.display = 'none';
+//     // 顯示自動輪播圖
+//     carousel.style.display = 'block';
+// });

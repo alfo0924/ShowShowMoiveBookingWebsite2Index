@@ -177,3 +177,15 @@ select, button {
     padding: 150px;
 }
 
+#web1Content,
+#web2Content,
+#web3Content {
+    padding: 150px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+
+}
+
