@@ -159,6 +159,7 @@ select, button {
 {
     background: rgba(255, 255, 255, 0.66);
 
+
 }
 /*.navbar a:hover*/
 /*{*/
@@ -171,5 +172,8 @@ select, button {
     background: rgba(255, 255, 255, 0.63);
 }
 
-
+#carouselExampleAutoplaying
+{
+    padding: 150px;
+}
 
